@@ -29,18 +29,10 @@ public class TeacherController {
     public String add(@ModelAttribute("newTeacher") TeacherDto teacherDto) {
         return "teacher";
     }
-//    @PostMapping("/teacher")
-//    public String add(@Valid @ModelAttribute("newTeacher") TeacherDto teacherDto,
-//                      BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "teacher";
-//        }
-//        teacherDao.save(teacherDto);
-//        return "redirect:/teacherInf";
-//    }
+
     @PostMapping("/teacher")
-    public String show(@Valid @ModelAttribute TeacherDto teacherDto,BindingResult bindingResult,
-                       Model model){
+    public String add(@Valid @ModelAttribute TeacherDto teacherDto, BindingResult bindingResult,
+                      Model model) {
         if (bindingResult.hasErrors()) {
             return "teacher";
         }
@@ -49,11 +41,42 @@ public class TeacherController {
         return "teacherInf";
     }
 
-//    @GetMapping("/{id}")
-//    public String teacherInfo(@PathVariable("id") long id, Model model) {
-//        model.addAttribute("teacher", teacherDao.show(id));
-//        return "teacherInf";
-//    }
+    @GetMapping("/teacher")
+    public String teacherInfo(long id, Model model) {
+        model.addAttribute("teacher", teacherDao.show(id));
+        return "teacherInf";
+    }
+
+    @GetMapping("/teacher")
+    public String getAllTeachers(@ModelAttribute List<Teacher> teachers) {
+        teacherDao.findAll();
+        return "teacher";
+    }
+
+    @GetMapping("/teacher")
+    public String getTeacherById(@ModelAttribute long id, Model model) {
+        model.addAttribute("CurrentTeacher", teacherDao.findById(id));
+        return "teacher";
+    }
+
+    @GetMapping("/teacher")
+    public String edit(@ModelAttribute("currentTeacher") TeacherDto teacherDto) {
+        return "teacher";
+    }
+
+    @PostMapping("/teacher")
+    public String add(@ModelAttribute TeacherDto teacherDto, Teacher teacher,
+                      Model model) {
+        teacherDao.edit(teacherDto.getId(), teacher);
+        //   model.addAttribute("teacher", teacherDto);
+        return "teacherInf";
+    }
+
+    @GetMapping("/teacher")
+    public String delete(@ModelAttribute("currentTeacher") TeacherDto teacherDto) {
+        teacherDao.delete(teacherDto.getId());
+        return "teacher";
+    }
 
 //    @RequestMapping("teacherInfo") //localhost:8080/calc/info
 //    public String userInfo(Model model, HttpSession httpSession) {

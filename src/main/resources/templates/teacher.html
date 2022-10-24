@@ -8,11 +8,15 @@
 </head>
 <body>
 <form th:action="@{/teacher}" th:object="${newTeacher}" method="post">
-    <input type="text" th:field="*{name}" placeholder="Name"/>
-    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-    <input type="text" th:field="*{surname}" placeholder="Name"/>
-    <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
-    <input type="submit" value="Create!"/>
+        <label for="name">Name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <tr>
+        <label for="surname">Surname: </label>
+        <input type="text" th:field="*{surname}" id="surname"/>
+        <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+    </tr>
+    <input type="submit" value="Submit"/>
 </form>
 </body>
 </html>
