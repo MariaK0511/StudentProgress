@@ -2,6 +2,7 @@ package by.tms.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
@@ -9,7 +10,10 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotEmpty(message = "Name should not be empty")
     private String name;
+    @NotEmpty(message = "Name should not be empty")
     private String surname;
 
     @OneToMany(cascade = CascadeType.ALL)

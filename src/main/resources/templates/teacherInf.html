@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Info</title>
+</head>
+<body>
+<h1>Person List</h1>
+<br/><br/>
+<table border="2">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Id</th>
+    </tr>
+<td th:utext="${teacher.name}">Value</td>
+<td th:utext="${teacher.surname}">Value</td>
+<td th:utext="${teacher.id}">Value</td>
+</table>
+</body>
+</html>

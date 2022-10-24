@@ -1,5 +1,6 @@
 package by.tms.dao;
 
+import by.tms.dto.StudentDto;
 import by.tms.entity.Grade;
 import by.tms.entity.Student;
 import by.tms.entity.Teacher;
@@ -17,10 +18,12 @@ public class StudentDao {
     private SessionFactory sessionFactory;
 
     @Transactional
-    public void save(Student student) {
+    public void save(StudentDto studentDto) {
         Session session = sessionFactory.getCurrentSession(); //generate new session
+        Student student = new Student();
+        student.setName(studentDto.getName());
+        student.setSurname(studentDto.getSurname());
         session.save(student);
-        //  session.close();
     }
 
     @Transactional(readOnly = true)

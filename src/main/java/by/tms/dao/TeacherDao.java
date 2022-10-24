@@ -1,5 +1,6 @@
 package by.tms.dao;
 
+import by.tms.dto.TeacherDto;
 import by.tms.entity.Teacher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,10 +18,19 @@ public class TeacherDao {
     private SessionFactory sessionFactory;
 
     @Transactional
-    public void save(Teacher teacher){
+    public void save(TeacherDto teacherDto){
         Session session = sessionFactory.getCurrentSession(); //generate new session
+        Teacher teacher = new Teacher();
+        teacher.setName(teacherDto.getName());
+        teacher.setSurname(teacherDto.getSurname());
         session.save(teacher);
-      //  session.close();
+        teacherDto.setId(teacher.getId());
+    }
+
+    @Transactional
+    public Teacher show(long id){
+        Session session = sessionFactory.getCurrentSession();
+       return session.get(Teacher.class, id);
     }
 
     @Transactional(readOnly = true)
@@ -35,6 +45,22 @@ public class TeacherDao {
         Session session = sessionFactory.getCurrentSession();
         Teacher teacher = session.find(Teacher.class, id);
         return teacher;
+    }
+
+    @Transactional
+    public  Teacher edit(long id, Teacher teacher){
+        Session session = sessionFactory.getCurrentSession();
+        Teacher editedTeacher = session.find(Teacher.class, id);
+        editedTeacher.setName(teacher.getName());
+        editedTeacher.setSurname(teacher.getSurname());
+        editedTeacher.setSubjects(teacher.getSubjects());
+        session.save(editedTeacher);
+        return editedTeacher;
+    }
+    @Transactional
+    public  void delete(long id){
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.get(Teacher.class, id));
     }
 
 //    @Transactional(readOnly = true)
