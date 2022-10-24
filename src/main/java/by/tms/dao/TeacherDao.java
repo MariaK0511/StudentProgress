@@ -27,12 +27,6 @@ public class TeacherDao {
         teacherDto.setId(teacher.getId());
     }
 
-    @Transactional
-    public Teacher show(long id){
-        Session session = sessionFactory.getCurrentSession();
-       return session.get(Teacher.class, id);
-    }
-
     @Transactional(readOnly = true)
     public List<Teacher> findAll(){ // JPQL
         Session session = sessionFactory.getCurrentSession();

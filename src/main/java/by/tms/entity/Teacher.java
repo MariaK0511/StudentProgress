@@ -11,7 +11,7 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty(message = "Name should not be empty")
+
     private String name;
     @NotEmpty(message = "Name should not be empty")
     private String surname;

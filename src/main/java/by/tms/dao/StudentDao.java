@@ -53,4 +53,26 @@ public class StudentDao {
 //                .setParameter("teacher", surname).getSingleResult();
 //        return teacher;
 //    }
+@Autowired
+private StudentDao studentDao;
+
+ 
+
+//    public void saveStudent(Student student) {
+//        studentDao.save(student);
+//    }
+
+    public Student findStudent(long id) {
+        return studentDao.findById(id);
+    }
+
+    public List<Student> findAllStudents() {
+        return studentDao.findAll();
+    }
+
+    public void updateStudent(Student student) {
+        studentDao.update(student);
+    }
 }
+
+

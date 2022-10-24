@@ -40,16 +40,10 @@ public class TeacherController {
         model.addAttribute("teacher", teacherDto);
         return "teacherInf";
     }
-
     @GetMapping("/teacher")
-    public String teacherInfo(long id, Model model) {
-        model.addAttribute("teacher", teacherDao.show(id));
-        return "teacherInf";
-    }
-
-    @GetMapping("/teacher")
-    public String getAllTeachers(@ModelAttribute List<Teacher> teachers) {
-        teacherDao.findAll();
+    public String getAllTeachers(@ModelAttribute List<Teacher> teachers, Model model) {
+        //teacherDao.findAll();
+        model.addAttribute("teacher", teacherDao.findAll());
         return "teacher";
     }
 
@@ -67,8 +61,7 @@ public class TeacherController {
     @PostMapping("/teacher")
     public String add(@ModelAttribute TeacherDto teacherDto, Teacher teacher,
                       Model model) {
-        teacherDao.edit(teacherDto.getId(), teacher);
-        //   model.addAttribute("teacher", teacherDto);
+        model.addAttribute("teacher",   teacherDao.edit(teacherDto.getId(), teacher));
         return "teacherInf";
     }
 
