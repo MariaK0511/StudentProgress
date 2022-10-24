@@ -41,9 +41,9 @@ public class TeacherController {
         return "teacherInf";
     }
     @GetMapping("/teacher")
-    public String getAllTeachers(@ModelAttribute List<Teacher> teachers, Model model) {
-        //teacherDao.findAll();
-        model.addAttribute("teacher", teacherDao.findAll());
+    public String getAllTeachers(@ModelAttribute TeacherDto teacherDto, Model model) {
+        List<Teacher> teachers = teacherDao.findAll();
+        model.addAttribute("teacher", teachers);
         return "teacher";
     }
 
