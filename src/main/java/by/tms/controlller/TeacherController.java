@@ -43,7 +43,7 @@ public class TeacherController {
     @GetMapping("/teacher")
     public String getAllTeachers(@ModelAttribute TeacherDto teacherDto, Model model) {
         List<Teacher> teachers = teacherDao.findAll();
-        model.addAttribute("teacher", teachers);
+        model.addAttribute("teachers", teachers);
         return "teacher";
     }
 
