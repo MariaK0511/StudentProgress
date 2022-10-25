@@ -24,10 +24,11 @@ public class StudentDao {
         student.setName(studentDto.getName());
         student.setSurname(studentDto.getSurname());
         session.save(student);
+        studentDto.setId(student.getId());
     }
 
     @Transactional(readOnly = true)
-    public List<Student> findAll() { // JPQL
+    public List<Student> findAll() {
         Session session = sessionFactory.getCurrentSession();
         List<Student> students = session.createQuery("from Student ", Student.class).getResultList();
         return students;
@@ -39,40 +40,25 @@ public class StudentDao {
         Student student = session.find(Student.class, id);
         return student;
     }
+    @Transactional(readOnly = true)
+    public Student show(long id){
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Student.class, id);
+    }
 
     @Transactional
-    public void update(Student student) {
+    public Student update(long id, Student student) {
         Session session = sessionFactory.getCurrentSession();
+        Student editedStudent = session.find(Student.class, id);
+        editedStudent.setName(student.getName());
+        editedStudent.setSurname(student.getSurname());
+        session.save(editedStudent);
         session.update(student);
+        return editedStudent;
     }
-
-//    @Transactional(readOnly = true)
-//    public Teacher findBySurname(String surname) {
-//        Session session = sessionFactory.getCurrentSession();
-//        Teacher teacher = session.createQuery("from Teacher  where surname = :teacher", Teacher.class)
-//                .setParameter("teacher", surname).getSingleResult();
-//        return teacher;
-//    }
-@Autowired
-private StudentDao studentDao;
-
- 
-
-//    public void saveStudent(Student student) {
-//        studentDao.save(student);
-//    }
-
-    public Student findStudent(long id) {
-        return studentDao.findById(id);
-    }
-
-    public List<Student> findAllStudents() {
-        return studentDao.findAll();
-    }
-
-    public void updateStudent(Student student) {
-        studentDao.update(student);
+    @Transactional
+    public  void delete(long id){
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.get(Student.class, id));
     }
 }
-
-

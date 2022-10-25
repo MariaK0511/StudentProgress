@@ -11,6 +11,8 @@ public class StudentDto {
     private String surname;
     private long grade;
 
+    private long id;
+
     public String getName() {
         return name;
     }
@@ -33,5 +35,13 @@ public class StudentDto {
 
     public void setGrade(long grade) {
         this.grade = grade;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

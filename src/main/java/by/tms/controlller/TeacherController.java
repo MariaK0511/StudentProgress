@@ -53,7 +53,7 @@ public class TeacherController {
         return "redirect:/teacherInf";
     }
 
-    @DeleteMapping("/teacherInf{id}")
+    @DeleteMapping("/teacherInf/{id}")
     public String delete(@PathVariable("id") long id) {
         teacherDao.delete(id);
         return "teacherInf";

@@ -19,16 +19,15 @@ public class TeacherDao {
 
     @Transactional
     public void save(TeacherDto teacherDto){
-        Session session = sessionFactory.getCurrentSession(); //generate new session
+        Session session = sessionFactory.getCurrentSession();
         Teacher teacher = new Teacher();
         teacher.setName(teacherDto.getName());
         teacher.setSurname(teacherDto.getSurname());
         session.save(teacher);
         teacherDto.setId(teacher.getId());
     }
-
     @Transactional(readOnly = true)
-    public List<Teacher> findAll(){ // JPQL
+    public List<Teacher> findAll(){
         Session session = sessionFactory.getCurrentSession();
         List<Teacher> teachers = session.createQuery("from Teacher ", Teacher.class).getResultList();
         return teachers;
