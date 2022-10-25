@@ -41,6 +41,12 @@ public class TeacherDao {
         return teacher;
     }
 
+    @Transactional(readOnly = true)
+    public Teacher show(long id){
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Teacher.class, id);
+    }
+
     @Transactional
     public  Teacher edit(long id, Teacher teacher){
         Session session = sessionFactory.getCurrentSession();
