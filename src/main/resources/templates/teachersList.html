@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en"> <html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Teachers</title>
+</head>
+<body>
+<!--<div th:each="teacher : ${teachers}">-->
+<!--    <a th:href="@{/allTeachers/{id}(id=${teacher.getId()})}" th:text="${person.getName()}">value</a>-->
+    <table class="table table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Id</th>
+        </tr>
+        <tr th:each="teacher : ${teachers}">
+        <td> <a th:href="@{/teacherInf/{id}(id=${teacher.id})}" th:text="${teacher.name}">Name</a></td>
+        <td th:text="${teacher.surname}">Surname</td>
+        <td th:text="${teacher.id}">Id</td>
+<!--        <td th:href="@{/edit}" th:text="${teacher.id}">Edit</td>-->
+<!--            <td><a href="#" th:text="${teacher.getId}">Edit</a></td>-->
+<!--            <td><a href="#" th:text="${teacher.getId}">Delete</a></td>-->
+<!--            <td><a href="@{/delete(id=${teacher.getId()})}">Delete</a></td>-->
+        </tr>
+    </table>
+<!--<a href="/teacher">Add new teacher</a>-->
+<a th:href="@{/teacher}">Add new teacher</a>
+
+</body>
+</html>

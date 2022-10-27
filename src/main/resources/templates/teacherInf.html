@@ -1,28 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Teacher Info</title>
 </head>
 <body>
-<h1>Person List</h1>
-<br/><br/>
-<table class="table table-bordered">
-    <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Id</th>
-    </tr>
-<td th:text="${teacher.name}">Value</td>
-<td th:text="${teacher.surname}">Value</td>
-<td th:text="${teacher.id}">Value</td>
-</table>
-</br>
-<a th:href="@{/teacher(id=${teacher.getId()})}">Edit</a>
+<h1>Person data</h1>
 
-<form th:method="DELETE" th:action="@{/teacher(id=${teacher.getId()})}">
+<form method="POST" th:action="@{/teacherInf}" th:object="${teacher}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <!--    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
+    <label for="surname">Surname: </label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    <!--        <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>-->
+    <label for="id">Id: </label>
+    <input type="text" th:field="*{id}" id="id"/>
+    <input type="submit" value="Edit"/>
+</form>
+
+<form th:method="POST" th:action="@{/teacherInf/{id}(id=${teacher.getId()})}">
     <input type="submit" value="Delete"/>
 </form>
 </body>

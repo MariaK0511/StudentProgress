@@ -25,7 +25,7 @@ public class StudentController {
 
     @GetMapping("/student")
     public String add(){
-        return "";
+        return "student";
     }
     @PostMapping("/student")
     public String add(@Valid @ModelAttribute("newStudent") StudentDto studentDto,
@@ -34,15 +34,15 @@ public class StudentController {
             return "student";
         }
         studentDao.save(studentDto);
-        model.addAttribute("student", studentDto);
-        return "/studentForm";
+   //     model.addAttribute("student", studentDto);
+        return "/studentList";
     }
 
-    @GetMapping("/student")
-    public String getAllStudents(@ModelAttribute StudentDto studentDto, Model model) {
+    @GetMapping("/studentList")
+    public String getStudentList(@ModelAttribute StudentDto studentDto, Model model) {
         List<Student> students = studentDao.findAll();
         model.addAttribute("students", students);
-        return "/allStudent";
+        return "studentList";
     }
     @GetMapping("/studentForm")
     public String getTeacherById(long id, Model model) {

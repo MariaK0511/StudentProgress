@@ -47,12 +47,12 @@ public class TeacherDao {
     }
 
     @Transactional
-    public  Teacher edit(long id, Teacher teacher){
+    public  Teacher edit(TeacherDto teacherDto){
         Session session = sessionFactory.getCurrentSession();
-        Teacher editedTeacher = session.find(Teacher.class, id);
-        editedTeacher.setName(teacher.getName());
-        editedTeacher.setSurname(teacher.getSurname());
-        editedTeacher.setSubjects(teacher.getSubjects());
+        Teacher editedTeacher = session.find(Teacher.class, teacherDto.getId());
+        editedTeacher.setName(teacherDto.getName());
+        editedTeacher.setSurname(teacherDto.getSurname());
+       // editedTeacher.setSubjects(teacherDto.getSubjects());
         session.save(editedTeacher);
         return editedTeacher;
     }

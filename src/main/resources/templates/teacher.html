@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Teacher</title>
 </head>
 <body>
-<form th:action="@{/teacher}" th:object="${teacher}" method="post">
-        <label for="name">Name: </label>
-        <input type="text" th:field="*{name}" id="name"/>
-        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+<form th:action="@{/teacher}" th:object="${teacher}" th:method="post">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     <tr>
         <label for="surname">Surname: </label>
         <input type="text" th:field="*{surname}" id="surname"/>
