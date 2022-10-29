@@ -24,44 +24,42 @@ public class StudentController {
     StudentDao studentDao;
 
     @GetMapping("/student")
-    public String add(){
+    public String initStudentPage(@ModelAttribute("student") StudentDto studentDto) {
         return "student";
     }
+
     @PostMapping("/student")
-    public String add(@Valid @ModelAttribute("newStudent") StudentDto studentDto,
-                      BindingResult bindingResult, Model model) {
+    public String addStudent(@Valid @ModelAttribute("student") StudentDto studentDto,
+                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "student";
         }
         studentDao.save(studentDto);
-   //     model.addAttribute("student", studentDto);
-        return "/studentList";
+        return "redirect:/studentsList";
     }
 
-    @GetMapping("/studentList")
-    public String getStudentList(@ModelAttribute StudentDto studentDto, Model model) {
-        List<Student> students = studentDao.findAll();
-        model.addAttribute("students", students);
-        return "studentList";
+    @GetMapping("/studentsList")
+    public String getAllStudents(@ModelAttribute StudentDto studentDto, Model model) {
+        model.addAttribute("students", studentDao.findAll());
+        return "studentsList";
     }
-    @GetMapping("/studentForm")
-    public String getTeacherById(long id, Model model) {
+
+    @GetMapping("/studentInf/{id}")
+    public String getTeacherById(@PathVariable("id") long id, Model model) {
         model.addAttribute("student", studentDao.findById(id));
-        return "/student";
+        return "studentInf";
     }
 
-    @PatchMapping("student")
-    public String update(@Valid @ModelAttribute StudentDto studentDto, Student student,
-                         BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors())
-            return "";
-        model.addAttribute("student", studentDao.update(studentDto.getId(), student));
-        return "/updateStudent";
+    @PostMapping("/studentInf")
+    public String update(@Valid @ModelAttribute("student") StudentDto studentDto,
+                         BindingResult bindingResult) {
+        studentDao.edit(studentDto);
+        return "redirect:/studentInf" + studentDto.getId();
     }
 
-    @DeleteMapping("studentForm/{id}")
+    @PostMapping("/studentInf/{id}")
     public String delete(@PathVariable("id") long id) {
         studentDao.delete(id);
-        return "/studentForm";
+        return "redirect:/studentsList";
     }
 }

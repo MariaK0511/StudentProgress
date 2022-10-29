@@ -23,7 +23,8 @@ public class TeacherController {
         return "teacher";
     }
     @PostMapping("/teacher")
-    public String addTeacher(@Valid @ModelAttribute("teacher") TeacherDto teacherDto, BindingResult bindingResult) {
+    public String addTeacher(@Valid @ModelAttribute("teacher") TeacherDto teacherDto,
+                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "teacher";
         }

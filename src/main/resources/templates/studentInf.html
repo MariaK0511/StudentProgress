@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Info</title>
+</head>
+<body>
+<h3>Information about student</h3>
+
+<form method="POST" th:action="@{/studentInf}" th:object="${student}">
+  <label for="name">Name: </label>
+  <input type="text" th:field="*{name}" id="name"/>
+  <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+  <label for="surname">Surname: </label>
+  <input type="text" th:field="*{surname}" id="surname"/>
+  <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+  <label for="id">Id: </label>
+  <input type="text" th:field="*{id}" th:readonly="${id}" id="id"/>
+  <input type="submit" value="Edit"/>
+</form>
+
+<a class="h2" th:href="@{/studentsList}">Return to Students List</a>
+
+<form th:method="POST" th:action="@{/studentInf/{id}(id=${student.getId()})}">
+  <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>

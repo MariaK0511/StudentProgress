@@ -2,7 +2,6 @@ package by.tms.controlller;
 
 
 import by.tms.dao.LessonDao;
-import by.tms.entity.Grade;
 import by.tms.entity.Lesson;
 import by.tms.entity.Subject;
 import by.tms.entity.Teacher;
@@ -17,7 +16,7 @@ import java.util.Date;
 
 @Controller
 @RequestMapping("/")
-public class LessonController {
+public class SubjectController {
 
     class LessonDto {
         private Date date;

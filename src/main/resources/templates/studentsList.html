@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en"> <html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Students</title>
+</head>
+<body>
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Id</th>
+    </tr>
+    <tr th:each="student : ${students}">
+        <td> <a th:href="@{/studentInf/{id}(id=${student.id})}" th:text="${student.name}">Name</a></td>
+        <td th:text="${student.surname}">Surname</td>
+        <td th:text="${student.id}">Id</td>
+    </tr>
+</table>
+<a th:href="@{/student}">Add new student</a>
+<a th:href="@{/}">Return to homepage</a>
+</body>
+</html>

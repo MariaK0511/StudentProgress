@@ -40,11 +40,11 @@ public class TeacherDao {
         return teacher;
     }
 
-    @Transactional(readOnly = true)
-    public Teacher show(long id){
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Teacher.class, id);
-    }
+//    @Transactional(readOnly = true)
+//    public Teacher show(long id){
+//        Session session = sessionFactory.getCurrentSession();
+//        return session.get(Teacher.class, id);
+//    }
 
     @Transactional
     public  Teacher edit(TeacherDto teacherDto){
@@ -61,12 +61,4 @@ public class TeacherDao {
         Session session = sessionFactory.getCurrentSession();
         session.remove(session.get(Teacher.class, id));
     }
-
-//    @Transactional(readOnly = true)
-//    public Teacher findBySurname(String surname) {
-//        Session session = sessionFactory.getCurrentSession();
-//        Teacher teacher = session.createQuery("from Teacher  where surname = :teacher", Teacher.class)
-//                .setParameter("teacher", surname).getSingleResult();
-//        return teacher;
-//    }
 }

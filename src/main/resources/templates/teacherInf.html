@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Teacher Info</title>
@@ -10,14 +10,16 @@
 <form method="POST" th:action="@{/teacherInf}" th:object="${teacher}">
     <label for="name">Name: </label>
     <input type="text" th:field="*{name}" id="name"/>
-    <!--    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     <label for="surname">Surname: </label>
     <input type="text" th:field="*{surname}" id="surname"/>
-    <!--        <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>-->
+            <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
     <label for="id">Id: </label>
-    <input type="text" th:field="*{id}" id="id"/>
+    <input type="text" th:field="*{id}" th:readonly="${id}" id="id"/>
     <input type="submit" value="Edit"/>
 </form>
+
+<a class="h2" th:href="@{/teachersList}">Return to Teachers List</a>
 
 <form th:method="POST" th:action="@{/teacherInf/{id}(id=${teacher.getId()})}">
     <input type="submit" value="Delete"/>

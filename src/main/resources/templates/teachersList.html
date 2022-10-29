@@ -7,8 +7,6 @@
     <title>List of Teachers</title>
 </head>
 <body>
-<!--<div th:each="teacher : ${teachers}">-->
-<!--    <a th:href="@{/allTeachers/{id}(id=${teacher.getId()})}" th:text="${person.getName()}">value</a>-->
     <table class="table table-bordered">
         <tr>
             <th>Name</th>
@@ -19,14 +17,9 @@
         <td> <a th:href="@{/teacherInf/{id}(id=${teacher.id})}" th:text="${teacher.name}">Name</a></td>
         <td th:text="${teacher.surname}">Surname</td>
         <td th:text="${teacher.id}">Id</td>
-<!--        <td th:href="@{/edit}" th:text="${teacher.id}">Edit</td>-->
-<!--            <td><a href="#" th:text="${teacher.getId}">Edit</a></td>-->
-<!--            <td><a href="#" th:text="${teacher.getId}">Delete</a></td>-->
-<!--            <td><a href="@{/delete(id=${teacher.getId()})}">Delete</a></td>-->
         </tr>
     </table>
-<!--<a href="/teacher">Add new teacher</a>-->
 <a th:href="@{/teacher}">Add new teacher</a>
-
+<a th:href="@{/}">Return to homepage</a>
 </body>
 </html>

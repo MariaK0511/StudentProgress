@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 
-<html >
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Teacher</title>
+    <title>Student</title>
 </head>
 <body>
-<form th:action="@{/teacher}" th:object="${teacher}" th:method="post">
+<form th:action="@{/student}" th:object="${student}" th:method="post">
     <label for="name">Name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>

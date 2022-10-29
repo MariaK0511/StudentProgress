@@ -19,7 +19,7 @@ public class StudentDao {
 
     @Transactional
     public void save(StudentDto studentDto) {
-        Session session = sessionFactory.getCurrentSession(); //generate new session
+        Session session = sessionFactory.getCurrentSession();
         Student student = new Student();
         student.setName(studentDto.getName());
         student.setSurname(studentDto.getSurname());
@@ -40,20 +40,13 @@ public class StudentDao {
         Student student = session.find(Student.class, id);
         return student;
     }
-    @Transactional(readOnly = true)
-    public Student show(long id){
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Student.class, id);
-    }
-
     @Transactional
-    public Student update(long id, Student student) {
+    public Student edit(StudentDto studentDto) {
         Session session = sessionFactory.getCurrentSession();
-        Student editedStudent = session.find(Student.class, id);
-        editedStudent.setName(student.getName());
-        editedStudent.setSurname(student.getSurname());
+        Student editedStudent = session.find(Student.class, studentDto.getId());
+        editedStudent.setName(studentDto.getName());
+        editedStudent.setSurname(studentDto.getSurname());
         session.save(editedStudent);
-        session.update(student);
         return editedStudent;
     }
     @Transactional

@@ -2,12 +2,15 @@ package by.tms.dto;
 
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotEmpty;
+
 @Component
 public class StudentDto {
     public StudentDto() {
     }
-
+    @NotEmpty(message = "Name should not be empty")
     private String name;
+    @NotEmpty(message = "Name should not be empty")
     private String surname;
     private long grade;
 
