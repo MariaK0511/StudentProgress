@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Subject</title>
+</head>
+<body>
+<h3>Add subject: </h3>
+<form th:action="@{/subject}" th:object="${subject}" th:method="post">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

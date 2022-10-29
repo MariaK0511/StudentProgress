@@ -11,14 +11,14 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String subject;
+    private String name;
 
     public Subject() {
     }
 
-    public Subject(long id, String subject) {
+    public Subject(long id, String name) {
         this.id = id;
-        this.subject = subject;
+        this.name = name;
     }
 
     public long getId() {
@@ -29,19 +29,20 @@ public class Subject {
         this.id = id;
     }
 
-    public String getSubject() {
-        return subject;
+
+    public String getName() {
+        return name;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Subject{" +
                 "id=" + id +
-                ", subject='" + subject + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

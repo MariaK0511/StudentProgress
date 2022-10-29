@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Subject Info</title>
+</head>
+<body>
+<h3>Subject data</h3>
+
+<form method="POST" th:action="@{/subjectInf}" th:object="${subject}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <label for="id">Id: </label>
+    <input type="text" th:field="*{id}" th:readonly="${id}" id="id"/>
+    <input type="submit" value="Edit"/>
+</form>
+
+<a class="h2" th:href="@{/subjectsList}">Return to Subjects List</a>
+
+<form th:method="POST" th:action="@{/subjectInf/{id}(id=${subject.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>
