@@ -9,8 +9,8 @@ import java.util.Date;
 public class Lesson {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @DateTimeFormat
-    private Date date;
+
+    private long numOfLesson;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
@@ -21,9 +21,8 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(long id, Date date, Subject subject, Teacher teacher) {
+    public Lesson(long id, Subject subject, Teacher teacher) {
         this.id = id;
-        this.date = date;
         this.subject = subject;
         this.teacher = teacher;
     }
@@ -36,13 +35,6 @@ public class Lesson {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public Subject getSubject() {
         return subject;
@@ -64,7 +56,6 @@ public class Lesson {
     public String toString() {
         return "Lesson{" +
                 "id=" + id +
-                ", date=" + date +
                 ", subject=" + subject +
                 ", teacher=" + teacher +
                 '}';

@@ -3,6 +3,7 @@ package by.tms.dao;
 import by.tms.dto.StudentDto;
 import by.tms.entity.Grade;
 import by.tms.entity.Student;
+import by.tms.entity.Subject;
 import by.tms.entity.Teacher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -54,4 +55,5 @@ public class StudentDao {
         Session session = sessionFactory.getCurrentSession();
         session.remove(session.get(Student.class, id));
     }
+
 }

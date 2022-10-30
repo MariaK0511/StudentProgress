@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/")
 public class TeacherController {
     @Autowired
-    TeacherDao teacherDao;
+  private TeacherDao teacherDao;
 
     @GetMapping("/teacher")
     public String initTeacherPage(@ModelAttribute("teacher")TeacherDto teacherDto) {

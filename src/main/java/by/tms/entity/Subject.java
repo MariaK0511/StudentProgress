@@ -1,10 +1,8 @@
 package by.tms.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Subject {
@@ -12,13 +10,22 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Student student;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Teacher teacher;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
 
     public Subject() {
     }
 
-    public Subject(long id, String name) {
+    public Subject(long id, String name, Teacher teacher, List<Lesson> lessons) {
         this.id = id;
         this.name = name;
+        this.teacher = teacher;
+        this.lessons = lessons;
     }
 
     public long getId() {
@@ -29,7 +36,6 @@ public class Subject {
         this.id = id;
     }
 
-
     public String getName() {
         return name;
     }
@@ -38,11 +44,29 @@ public class Subject {
         this.name = name;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
     @Override
     public String toString() {
         return "Subject{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", teacher=" + teacher +
+                ", lessons=" + lessons +
                 '}';
     }
 }

@@ -21,6 +21,8 @@
 
 <a class="h2" th:href="@{/studentsList}">Return to Students List</a>
 
+<a class="h2" th:href="@{/subjectsList}">Subjects of user</a>
+
 <form th:method="POST" th:action="@{/studentInf/{id}(id=${student.getId()})}">
   <input type="submit" value="Delete"/>
 </form>

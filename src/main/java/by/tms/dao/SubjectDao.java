@@ -4,6 +4,7 @@ package by.tms.dao;
 import by.tms.dto.SubjectDto;
 import by.tms.dto.TeacherDto;
 import by.tms.entity.Lesson;
+import by.tms.entity.Student;
 import by.tms.entity.Subject;
 import by.tms.entity.Teacher;
 import org.hibernate.Session;
@@ -27,6 +28,7 @@ public class SubjectDao {
         session.save(subject);
         subjectDto.setId(subject.getId());
     }
+
     @Transactional(readOnly = true)
     public List<Subject> findAll() {
         Session session = sessionFactory.getCurrentSession();
@@ -51,5 +53,19 @@ public class SubjectDao {
     public void delete(long id) {
         Session session = sessionFactory.getCurrentSession();
         session.remove(session.get(Subject.class, id));
+    }
+    @Transactional(readOnly = true)
+    public List<Subject> findSubjectByTeacher(Teacher teacher) {
+        Session session = sessionFactory.getCurrentSession();
+        List<Subject> subjects = session.createQuery("from Subject  where teacher = :teacher", Subject.class)
+                .setParameter("teacher", teacher).getResultList();
+        return subjects;
+    }
+    @Transactional(readOnly = true)
+    public List<Subject> findSubjectsOfStudent(Student student) {
+        Session session = sessionFactory.getCurrentSession();
+        List<Subject> subjects = session.createQuery("from Subject  where student = :student", Subject.class)
+                .setParameter("student", student).getResultList();
+        return subjects;
     }
 }

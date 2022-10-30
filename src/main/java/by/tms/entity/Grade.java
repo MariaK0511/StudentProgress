@@ -9,28 +9,23 @@ public class Grade {
     private long id;
     private long grade;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Student student;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
-
     @OneToOne(cascade = CascadeType.ALL )
     private Lesson lesson;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Teacher teacher;
 
     public Grade() {
     }
 
-    public Grade(long id, long grade, Student student, Subject subject, Lesson lesson, Teacher teacher) {
+    public Grade(long id, long grade, Student student, Lesson lesson) {
         this.id = id;
         this.grade = grade;
         this.student = student;
-        this.subject = subject;
         this.lesson = lesson;
-        this.teacher = teacher;
     }
 
     public long getId() {
@@ -57,14 +52,6 @@ public class Grade {
         this.student = student;
     }
 
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
     public Lesson getLesson() {
         return lesson;
     }
@@ -73,23 +60,13 @@ public class Grade {
         this.lesson = lesson;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
     @Override
     public String toString() {
         return "Grade{" +
                 "id=" + id +
                 ", grade=" + grade +
                 ", student=" + student +
-                ", subject=" + subject +
                 ", lesson=" + lesson +
-                ", teacher=" + teacher +
                 '}';
     }
 }

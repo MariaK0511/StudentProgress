@@ -13,7 +13,7 @@ public class Teacher {
 
 
     private String name;
-    @NotEmpty(message = "Name should not be empty")
+
     private String surname;
 
     @OneToMany(cascade = CascadeType.ALL)

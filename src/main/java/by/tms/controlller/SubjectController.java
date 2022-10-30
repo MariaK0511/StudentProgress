@@ -59,4 +59,5 @@ public class SubjectController {
        subjectDao.delete(id);
         return "redirect:/subjectsList";
     }
+
 }

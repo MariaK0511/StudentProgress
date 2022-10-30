@@ -4,10 +4,10 @@ import javax.validation.constraints.NotEmpty;
 
 public class SubjectDto {
 
-    @NotEmpty(message = "Name should not be empty")
+
     public SubjectDto() {
     }
-
+    @NotEmpty(message = "Name should not be empty")
     private String name;
     private long id;
 
