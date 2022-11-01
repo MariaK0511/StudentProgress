@@ -45,7 +45,7 @@ public class StudentController {
     }
 
     @GetMapping("/studentInf/{id}")
-    public String getTeacherById(@PathVariable("id") long id, Model model) {
+    public String getStudentById(@PathVariable("id") long id, Model model) {
         model.addAttribute("student", studentDao.findById(id));
         return "studentInf";
     }
@@ -54,7 +54,7 @@ public class StudentController {
     public String update(@Valid @ModelAttribute("student") StudentDto studentDto,
                          BindingResult bindingResult) {
         studentDao.edit(studentDto);
-        return "redirect:/studentInf" + studentDto.getId();
+        return "redirect:/studentInf/" + studentDto.getId();
     }
 
     @PostMapping("/studentInf/{id}")

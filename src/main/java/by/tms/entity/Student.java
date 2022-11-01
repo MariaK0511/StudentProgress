@@ -12,17 +12,6 @@ public class Student {
     private long id;
     private String name;
     private String surname;
-    //	private LocalDateTime localDateTime;
-//
-//	private LocalDate localDate;
-//
-//	@Temporal(TemporalType.TIMESTAMP)
-//	private Date date;
-
-
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<Grade> grades;
-
     public Student() {
     }
 

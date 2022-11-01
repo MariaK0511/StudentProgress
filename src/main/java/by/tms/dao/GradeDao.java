@@ -52,6 +52,4 @@ public class GradeDao {
                 .setParameter("subject", subject).getResultList();
         return grades;
     }
-
-
 }

@@ -15,16 +15,12 @@ public class Lesson {
     @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Teacher teacher;
-
     public Lesson() {
     }
 
-    public Lesson(long id, Subject subject, Teacher teacher) {
+    public Lesson(long id, Subject subject) {
         this.id = id;
         this.subject = subject;
-        this.teacher = teacher;
     }
 
     public long getId() {
@@ -44,20 +40,11 @@ public class Lesson {
         this.subject = subject;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
     @Override
     public String toString() {
         return "Lesson{" +
                 "id=" + id +
                 ", subject=" + subject +
-                ", teacher=" + teacher +
                 '}';
     }
 }

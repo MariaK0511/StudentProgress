@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -35,12 +36,14 @@ public class SubjectDao {
         List<Subject> subjects = session.createQuery("from Subject ", Subject.class).getResultList();
         return subjects;
     }
+
     @Transactional(readOnly = true)
     public Subject findById(long id) {
         Session session = sessionFactory.getCurrentSession();
         Subject subject = session.find(Subject.class, id);
         return subject;
     }
+
     @Transactional
     public Subject edit(SubjectDto subjectDto) {
         Session session = sessionFactory.getCurrentSession();
@@ -49,18 +52,30 @@ public class SubjectDao {
         session.save(editedSubject);
         return editedSubject;
     }
+
     @Transactional
     public void delete(long id) {
         Session session = sessionFactory.getCurrentSession();
         session.remove(session.get(Subject.class, id));
     }
+
     @Transactional(readOnly = true)
-    public List<Subject> findSubjectByTeacher(Teacher teacher) {
+    public List<SubjectDto> findSubjectByTeacher(TeacherDto teacherDto) {
         Session session = sessionFactory.getCurrentSession();
-        List<Subject> subjects = session.createQuery("from Subject  where teacher = :teacher", Subject.class)
-                .setParameter("teacher", teacher).getResultList();
-        return subjects;
+        List<Subject> subjects = session.createQuery("from Subject  where teacher.id = :teacherId", Subject.class)
+                .setParameter("teacherId", teacherDto.getId()).getResultList();
+        List<SubjectDto> subjectDtoList = new ArrayList<>();
+        subjects.forEach(subject -> subjectDtoList.add(createSubjectDto(subject)));
+        return subjectDtoList;
     }
+
+    public SubjectDto createSubjectDto(Subject subject) {
+        SubjectDto subjectDto = new SubjectDto();
+        subjectDto.setId(subject.getId());
+        subjectDto.setName(subject.getName());
+        return subjectDto;
+    }
+
     @Transactional(readOnly = true)
     public List<Subject> findSubjectsOfStudent(Student student) {
         Session session = sessionFactory.getCurrentSession();

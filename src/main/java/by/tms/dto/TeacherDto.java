@@ -8,9 +8,9 @@ public class TeacherDto {
     }
     @NotEmpty(message = "Name should not be empty")
     private String name;
-    @NotEmpty(message = "Name should not be empty")
+    @NotEmpty(message = "Surname should not be empty")
     private String surname;
-    @NotEmpty(message = "Name should not be empty")
+
     private String subject;
     private long id;
 

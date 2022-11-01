@@ -10,10 +10,7 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-
     private String name;
-
     private String surname;
 
     @OneToMany(cascade = CascadeType.ALL)

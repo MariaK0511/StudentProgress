@@ -16,12 +16,13 @@ import java.util.List;
 @RequestMapping("/")
 public class TeacherController {
     @Autowired
-  private TeacherDao teacherDao;
+    private TeacherDao teacherDao;
 
     @GetMapping("/teacher")
-    public String initTeacherPage(@ModelAttribute("teacher")TeacherDto teacherDto) {
+    public String initTeacherPage(@ModelAttribute("teacher") TeacherDto teacherDto) {
         return "teacher";
     }
+
     @PostMapping("/teacher")
     public String addTeacher(@Valid @ModelAttribute("teacher") TeacherDto teacherDto,
                              BindingResult bindingResult) {
@@ -41,15 +42,12 @@ public class TeacherController {
         model.addAttribute("teacher", teacherDao.findById(id));
         return "teacherInf";
     }
-
     @PostMapping("/teacherInf")
     public String update(@Valid @ModelAttribute("teacher") TeacherDto teacherDto,
                          BindingResult bindingResult, Model model) {
         teacherDao.edit(teacherDto);
-       // model.addAttribute("teacher", teacherDao.edit(teacherDto.getId(), teacher));
-        return "redirect:/teacherInf/"+teacherDto.getId();
+        return "redirect:/teacherInf/" + teacherDto.getId();
     }
-
     @PostMapping("/teacherInf/{id}")
     public String delete(@PathVariable("id") long id) {
         teacherDao.delete(id);
