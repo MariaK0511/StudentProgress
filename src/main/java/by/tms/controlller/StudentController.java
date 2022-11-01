@@ -23,25 +23,20 @@ public class StudentController {
     @Autowired
     StudentDao studentDao;
 
-    @GetMapping("/student")
-    public String initStudentPage(@ModelAttribute("student") StudentDto studentDto) {
-        return "student";
+    @GetMapping("/studentsList")
+    public String initPageOfStudents(@ModelAttribute("student") StudentDto studentDto, Model model) {
+        model.addAttribute("students", studentDao.findAll());
+        return "studentsList";
     }
 
-    @PostMapping("/student")
+    @PostMapping("/studentsList")
     public String addStudent(@Valid @ModelAttribute("student") StudentDto studentDto,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "student";
+            return "studentsList";
         }
         studentDao.save(studentDto);
         return "redirect:/studentsList";
-    }
-
-    @GetMapping("/studentsList")
-    public String getAllStudents(@ModelAttribute StudentDto studentDto, Model model) {
-        model.addAttribute("students", studentDao.findAll());
-        return "studentsList";
     }
 
     @GetMapping("/studentInf/{id}")

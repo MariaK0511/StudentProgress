@@ -18,36 +18,35 @@ public class TeacherController {
     @Autowired
     private TeacherDao teacherDao;
 
-    @GetMapping("/teacher")
-    public String initTeacherPage(@ModelAttribute("teacher") TeacherDto teacherDto) {
-        return "teacher";
+    @GetMapping("/teachersList")
+    public String initPageOfTeachers(@ModelAttribute("teacher") TeacherDto teacherDto, Model model) {
+        model.addAttribute("teachers", teacherDao.findAll());
+        return "teachersList";
     }
 
-    @PostMapping("/teacher")
+    @PostMapping("/teachersList")
     public String addTeacher(@Valid @ModelAttribute("teacher") TeacherDto teacherDto,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "teacher";
+            return "teachersList";
         }
         teacherDao.save(teacherDto);
         return "redirect:/teachersList";
     }
-    @GetMapping("/teachersList")
-    public String getAllTeachers(@ModelAttribute TeacherDto teacherDto, Model model) {
-        model.addAttribute("teachers", teacherDao.findAll());
-        return "teachersList";
-    }
+
     @GetMapping("/teacherInf/{id}")
     public String getTeacherById(@PathVariable("id") long id, Model model) {
         model.addAttribute("teacher", teacherDao.findById(id));
         return "teacherInf";
     }
+
     @PostMapping("/teacherInf")
     public String update(@Valid @ModelAttribute("teacher") TeacherDto teacherDto,
                          BindingResult bindingResult, Model model) {
         teacherDao.edit(teacherDto);
         return "redirect:/teacherInf/" + teacherDto.getId();
     }
+
     @PostMapping("/teacherInf/{id}")
     public String delete(@PathVariable("id") long id) {
         teacherDao.delete(id);

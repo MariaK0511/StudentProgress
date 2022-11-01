@@ -1,26 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-<html lang="en"> <html xmlns="http://www.w3.org/1999/xhtml">
-<html xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>List of Students</title>
 </head>
 <body>
-<h3>List of Students</h3>
+<h3>Add student: </h3>
+<form th:action="@{/studentsList}" th:object="${student}" th:method="post">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <tr>
+        <label for="surname">Surname: </label>
+        <input type="text" th:field="*{surname}" id="surname"/>
+        <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+    </tr>
+    <input type="submit" value="Add"/>
+</form>
+<h3>List of Students: </h3>
 <table class="table table-bordered">
+    <thead>
     <tr>
         <th>Name</th>
         <th>Surname</th>
         <th>Id</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="student : ${students}">
-        <td> <a th:href="@{/studentInf/{id}(id=${student.id})}" th:text="${student.name}">Name</a></td>
+        <td><a th:href="@{/studentInf/{id}(id=${student.id})}" th:text="${student.name}">Name</a></td>
         <td th:text="${student.surname}">Surname</td>
         <td th:text="${student.id}">Id</td>
     </tr>
+    </tbody>
 </table>
-<a th:href="@{/student}">Add new student</a>
-<a th:href="@{/}">Return to homepage</a>
+<br>
+<a th:href="@{/adminpage}">Return to Admin Page</a>
+<br>
+<a th:href="@{/}">Return to Homepage</a>
+
 </body>
 </html>

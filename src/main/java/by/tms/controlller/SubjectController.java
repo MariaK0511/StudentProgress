@@ -21,28 +21,25 @@ import java.util.Date;
 @Controller
 @RequestMapping("/")
 public class SubjectController {
-
     @Autowired
     SubjectDao subjectDao;
 
-    @GetMapping("/subject")
-    public String initSubjectPage(@ModelAttribute("subject") SubjectDto subjectDto) {
-        return "subject";
+    @GetMapping("/subjectsList")
+    public String initPageOfSubjects(@ModelAttribute("subject") SubjectDto subjectDto, Model model) {
+        model.addAttribute("subjects", subjectDao.findAll());
+        return "subjectsList";
     }
-    @PostMapping("/subject")
+
+    @PostMapping("/subjectsList")
     public String addSubject(@Valid @ModelAttribute("subject") SubjectDto subjectDto,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "subject";
+            return "subjectsList";
         }
         subjectDao.save(subjectDto);
         return "redirect:/subjectsList";
     }
-    @GetMapping("/subjectsList")
-    public String getAllSubjects(@ModelAttribute SubjectDto subjectDto, Model model) {
-        model.addAttribute("subjects", subjectDao.findAll());
-        return "subjectsList";
-    }
+
     @GetMapping("/subjectInf/{id}")
     public String getSubjectById(@PathVariable("id") long id, Model model) {
         model.addAttribute("subject", subjectDao.findById(id));

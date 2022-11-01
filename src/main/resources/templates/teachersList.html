@@ -1,25 +1,40 @@
 <!DOCTYPE html>
-<html lang="en"> <html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>List of Teachers</title>
 </head>
+<h3>Add Teacher: </h3>
+<form th:action="@{/teachersList}" th:object="${teacher}" th:method="post">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <tr>
+        <label for="surname">Surname: </label>
+        <input type="text" th:field="*{surname}" id="surname"/>
+        <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+    </tr>
+    <input type="submit" value="Submit"/>
+</form>
 <h3>List of Teachers</h3>
 <body>
-    <table class="table table-bordered">
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Id</th>
-        </tr>
-        <tr th:each="teacher : ${teachers}">
-        <td> <a th:href="@{/teacherInf/{id}(id=${teacher.id})}" th:text="${teacher.name}">Name</a></td>
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Id</th>
+    </tr>
+    <tr th:each="teacher : ${teachers}">
+        <td><a th:href="@{/teacherInf/{id}(id=${teacher.id})}" th:text="${teacher.name}">Name</a></td>
         <td th:text="${teacher.surname}">Surname</td>
         <td th:text="${teacher.id}">Id</td>
-        </tr>
-    </table>
-<a th:href="@{/teacher}">Add new teacher</a>
-<a th:href="@{/}">Return to homepage</a>
+    </tr>
+</table>
+<br>
+<a th:href="@{/adminpage}">Return to Admin Page</a>
+<br>
+<a th:href="@{/}">Return to Homepage</a>
 </body>
 </html>
