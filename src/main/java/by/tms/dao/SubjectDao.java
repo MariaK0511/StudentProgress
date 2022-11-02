@@ -21,6 +21,9 @@ public class SubjectDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private TeacherDao teacherDao;
+
     @Transactional
     public void save(SubjectDto subjectDto) {
         Session session = sessionFactory.getCurrentSession();
@@ -60,10 +63,10 @@ public class SubjectDao {
     }
 
     @Transactional(readOnly = true)
-    public List<SubjectDto> findSubjectByTeacher(TeacherDto teacherDto) {
+    public List<SubjectDto> findSubjectsByTeacherId(long id) {
         Session session = sessionFactory.getCurrentSession();
-        List<Subject> subjects = session.createQuery("from Subject  where teacher.id = :teacherId", Subject.class)
-                .setParameter("teacherId", teacherDto.getId()).getResultList();
+        List<Subject> subjects = session.createQuery("from Subject where teacher.id = :teacherId", Subject.class)
+                .setParameter("teacherId", id).getResultList();
         List<SubjectDto> subjectDtoList = new ArrayList<>();
         subjects.forEach(subject -> subjectDtoList.add(createSubjectDto(subject)));
         return subjectDtoList;
@@ -75,6 +78,22 @@ public class SubjectDao {
         subjectDto.setName(subject.getName());
         return subjectDto;
     }
+
+    public Subject findSubjectByNameOfSubject(SubjectDto subjectDto) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from Subject where name = :subjectName",
+                Subject.class).setParameter("subjectName", subjectDto.getName()).getSingleResult();
+    }
+
+    @Transactional
+    public void addSubjectToTeacher(SubjectDto subjectDto, long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Subject subjectByNameOfSubject = findSubjectByNameOfSubject(subjectDto);
+        Teacher teacher = teacherDao.findById(id);
+        subjectByNameOfSubject.setTeacher(teacher);
+        session.save(subjectByNameOfSubject);
+    }
+
 
     @Transactional(readOnly = true)
     public List<Subject> findSubjectsOfStudent(Student student) {

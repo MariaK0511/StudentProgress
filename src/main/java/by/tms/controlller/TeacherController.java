@@ -1,8 +1,9 @@
 package by.tms.controlller;
 
+import by.tms.dao.SubjectDao;
 import by.tms.dao.TeacherDao;
+import by.tms.dto.SubjectDto;
 import by.tms.dto.TeacherDto;
-import by.tms.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +11,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class TeacherController {
     @Autowired
     private TeacherDao teacherDao;
+    @Autowired
+    private SubjectDao subjectDao;
 
     @GetMapping("/teachersList")
-    public String initPageOfTeachers(@ModelAttribute("teacher") TeacherDto teacherDto, Model model) {
+    public String initPageOfTeachers(@ModelAttribute("teacher") TeacherDto teacherDto,
+                                     Model model) {
         model.addAttribute("teachers", teacherDao.findAll());
         return "teachersList";
     }
@@ -35,14 +38,17 @@ public class TeacherController {
     }
 
     @GetMapping("/teacherInf/{id}")
-    public String getTeacherById(@PathVariable("id") long id, Model model) {
+    public String getTeacherById(@PathVariable("id") long id,
+                                 @ModelAttribute("subject") SubjectDto subjectDto,
+                                 Model model) {
         model.addAttribute("teacher", teacherDao.findById(id));
+        model.addAttribute("subjects", subjectDao.findSubjectsByTeacherId(id));
         return "teacherInf";
     }
 
     @PostMapping("/teacherInf")
     public String update(@Valid @ModelAttribute("teacher") TeacherDto teacherDto,
-                         BindingResult bindingResult, Model model) {
+                         BindingResult bindingResult) {
         teacherDao.edit(teacherDto);
         return "redirect:/teacherInf/" + teacherDto.getId();
     }

@@ -10,10 +10,10 @@
 <form method="POST" th:action="@{/teacherInf}" th:object="${teacher}">
     <label for="name">Name: </label>
     <input type="text" th:field="*{name}" id="name"/>
-        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     <label for="surname">Surname: </label>
     <input type="text" th:field="*{surname}" id="surname"/>
-            <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+    <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
     <label for="id">Id: </label>
     <input type="text" th:field="*{id}" th:readonly="${id}" id="id"/>
     <input type="submit" value="Edit"/>
@@ -21,8 +21,29 @@
 
 <a class="h2" th:href="@{/teachersList}">Return to Teachers List</a>
 
-<form th:method="POST" th:action="@{/teacherInf/{id}(id=${teacher.getId()})}">
+<form method="POST" th:action="@{/teacherInf/{id}(id=${teacher.getId()})}">
     <input type="submit" value="Delete"/>
 </form>
+
+<h3>Add subject: </h3>
+<form th:action="@{/teacherInfAddSubject/{id}(id=${teacher.getId()})}" th:object="${subject}" method="POST">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <input type="submit" value="Add"/>
+</form>
+
+<h3>List of Subjects: </h3>
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Id</th>
+    </tr>
+    <tr th:each="subject : ${subjects}">
+        <td th:text="${subject.name}">Name</td>
+        <td th:text="${subject.id}">Id</td>
+    </tr>
+</table>
+
 </body>
 </html>

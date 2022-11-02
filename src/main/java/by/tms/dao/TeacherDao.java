@@ -61,8 +61,8 @@ public class TeacherDao {
 //    @Transactional(readOnly = true)
 //    public Teacher findBySurname(String surname) {
 //        Session session = sessionFactory.getCurrentSession();
-//        Teacher teacher = session.createQuery("from Teacher  where surname = :teacher", Teacher.class)
-//                .setParameter("teacher", surname).getSingleResult();
+//        Teacher teacher = session.createQuery("from Teacher  where surname = :teacherSurname", Teacher.class)
+//                .setParameter("teacherSurname", surname).getSingleResult();
 //        return teacher;
 //    }
 }
