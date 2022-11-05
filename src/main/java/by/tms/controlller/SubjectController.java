@@ -64,4 +64,16 @@ public class SubjectController {
         subjectDao.addSubjectToTeacher(subjectDto, id);
         return "redirect:/teacherInf/" + id;
     }
+
+    @PostMapping("/studentInfAddSubject/{id}")
+    public String addSubjectsToStudent(@PathVariable("id") long id,
+                                       @Valid @ModelAttribute("subject") SubjectDto subjectDto,
+                                       Model model,
+                                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "studentInf";
+        }
+        subjectDao.addSubjectToStudent(subjectDto, id);
+        return "redirect:/studentInf/" + id;
+    }
 }

@@ -12,6 +12,8 @@ public class Student {
     private long id;
     private String name;
     private String surname;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Subject> subjects;
     public Student() {
     }
 

@@ -24,6 +24,9 @@ public class SubjectDao {
     @Autowired
     private TeacherDao teacherDao;
 
+    @Autowired
+    private StudentDao studentDao;
+
     @Transactional
     public void save(SubjectDto subjectDto) {
         Session session = sessionFactory.getCurrentSession();
@@ -94,12 +97,21 @@ public class SubjectDao {
         session.save(subjectByNameOfSubject);
     }
 
-
     @Transactional(readOnly = true)
-    public List<Subject> findSubjectsOfStudent(Student student) {
+    public List<SubjectDto> findSubjectsByStudentId(long id) {
         Session session = sessionFactory.getCurrentSession();
-        List<Subject> subjects = session.createQuery("from Subject  where student = :student", Subject.class)
-                .setParameter("student", student).getResultList();
-        return subjects;
+        List<Subject> subjects = session.createQuery("from Subject  where student.id = :studentId", Subject.class)
+                .setParameter("studentId", id).getResultList();
+        List<SubjectDto> subjectDtoList = new ArrayList<>();
+        subjects.forEach(subject -> subjectDtoList.add(createSubjectDto(subject)));
+        return subjectDtoList;
+    }
+    @Transactional
+    public void addSubjectToStudent(SubjectDto subjectDto, long id){
+        Session session = sessionFactory.getCurrentSession();
+        Subject subjectByNameOfSubject = findSubjectByNameOfSubject(subjectDto);
+        Student student= studentDao.findById(id);
+        subjectByNameOfSubject.setStudent(student);
+        session.save(subjectByNameOfSubject);
     }
 }

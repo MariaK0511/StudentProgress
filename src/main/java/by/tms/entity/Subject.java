@@ -60,13 +60,13 @@ public class Subject {
         this.lessons = lessons;
     }
 
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", teacher=" + teacher +
-                ", lessons=" + lessons +
-                '}';
+    public Student getStudent() {
+        return student;
     }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+
 }
