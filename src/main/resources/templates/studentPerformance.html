@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Performance</title>
+</head>
+<body>
+<h3>Student: </h3>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Id</th>
+    </tr>
+    </thead>
+    <tbody>
+    <td th:text="${student.name}">Name</td>
+    <td th:text="${student.surname}">Surname</td>
+    <td th:text="${student.id}">Id</td>
+    </tbody>
+</table>
+
+
+<h3>List of Subjects: </h3>
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Id</th>
+    </tr>
+    <tr th:each="subject : ${subjects}">
+        <td th:text="${subject.name}">Name</td>
+        <td th:text="${subject.id}">Id</td>
+    </tr>
+</table>
+</body>
+</html>

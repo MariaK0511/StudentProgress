@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Component
 public class StudentDto {
+
     public StudentDto() {
     }
     @NotEmpty(message = "Name should not be empty")

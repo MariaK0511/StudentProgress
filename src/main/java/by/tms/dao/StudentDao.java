@@ -1,10 +1,7 @@
 package by.tms.dao;
 
 import by.tms.dto.StudentDto;
-import by.tms.entity.Grade;
 import by.tms.entity.Student;
-import by.tms.entity.Subject;
-import by.tms.entity.Teacher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,8 @@ import java.util.List;
 public class StudentDao {
     @Autowired
     private SessionFactory sessionFactory;
+
+    StudentDao studentDao;
 
     @Transactional
     public void save(StudentDto studentDto) {
@@ -41,6 +40,7 @@ public class StudentDao {
         Student student = session.find(Student.class, id);
         return student;
     }
+
     @Transactional
     public Student edit(StudentDto studentDto) {
         Session session = sessionFactory.getCurrentSession();
@@ -50,10 +50,20 @@ public class StudentDao {
         session.save(editedStudent);
         return editedStudent;
     }
+
     @Transactional
-    public  void delete(long id){
+    public void delete(long id) {
         Session session = sessionFactory.getCurrentSession();
         session.remove(session.get(Student.class, id));
     }
 
+    @Transactional(readOnly = true)
+    public Long findStudentIdByNameAndSurname(StudentDto studentDto) {
+        Session session = sessionFactory.getCurrentSession();
+        Student student = session.createQuery("from Student where name =: studentName and surname=: studentSurname",
+                        Student.class)
+                .setParameter("studentName", studentDto.getName())
+                .setParameter("studentSurname", studentDto.getSurname()).getSingleResult();
+        return student.getId();
+    }
 }

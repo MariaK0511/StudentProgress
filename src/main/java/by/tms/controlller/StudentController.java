@@ -4,20 +4,13 @@ import by.tms.dao.StudentDao;
 import by.tms.dao.SubjectDao;
 import by.tms.dto.StudentDto;
 import by.tms.dto.SubjectDto;
-import by.tms.dto.TeacherDto;
-import by.tms.entity.Grade;
-import by.tms.entity.Student;
-import by.tms.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -64,5 +57,26 @@ public class StudentController {
     public String delete(@PathVariable("id") long id) {
         studentDao.delete(id);
         return "redirect:/studentsList";
+    }
+
+    @GetMapping("/studentPage")
+    public String initStudentPage(@ModelAttribute("student") StudentDto studentDto,
+                                  Model model) {
+        return "studentPage";
+    }
+
+    @PostMapping("/studentPage")
+    public String findStudentIdByNameAndSurname(@ModelAttribute StudentDto studentDto, Model model) {
+        Long id = studentDao.findStudentIdByNameAndSurname(studentDto);
+        return "redirect:/studentPerformance/" + id;
+    }
+
+    @GetMapping("/studentPerformance/{id}")
+    public String showStudentPerformance(@PathVariable("id") Long id,
+                                         @ModelAttribute StudentDto studentDto,
+                                         Model model) {
+        model.addAttribute("student", studentDao.findById(id));
+        model.addAttribute("subjects", subjectDao.findSubjectsByStudentId(id));
+        return "studentPerformance";
     }
 }
