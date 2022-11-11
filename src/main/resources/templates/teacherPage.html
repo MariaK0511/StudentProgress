@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Page</title>
+</head>
+<body>
+<h3>Enter your name and surname: </h3>
+
+<form method="post"
+      th:action="@{/teacherPage}"
+      th:object="${teacher}">
+  <label for="name">Name: </label>
+  <input type="text" th:field="*{name}" id="name"/>
+  <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+  <label for="surname">Surname: </label>
+  <input type="text" th:field="*{surname}" id="surname"/>
+  <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+  <input type="submit" value="Submit"/>
+</form>
+<a th:href="@{/}">Return to Homepage</a>
+</body>
+</html>

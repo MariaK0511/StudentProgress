@@ -7,10 +7,12 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long grade;
+    private long name;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Student student;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Teacher teacher;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
@@ -21,10 +23,12 @@ public class Grade {
     public Grade() {
     }
 
-    public Grade(long id, long grade, Student student, Lesson lesson) {
+    public Grade(long id, long name, Student student, Teacher teacher, Subject subject, Lesson lesson) {
         this.id = id;
-        this.grade = grade;
+        this.name = name;
         this.student = student;
+        this.teacher = teacher;
+        this.subject = subject;
         this.lesson = lesson;
     }
 
@@ -36,13 +40,6 @@ public class Grade {
         this.id = id;
     }
 
-    public long getGrade() {
-        return grade;
-    }
-
-    public void setGrade(long grade) {
-        this.grade = grade;
-    }
 
     public Student getStudent() {
         return student;
@@ -50,6 +47,24 @@ public class Grade {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public long getName() {
+        return name;
+    }
+
+    public void setName(long name) {
+        this.name = name;
     }
 
     public Lesson getLesson() {
@@ -60,12 +75,22 @@ public class Grade {
         this.lesson = lesson;
     }
 
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
     @Override
     public String toString() {
         return "Grade{" +
                 "id=" + id +
-                ", grade=" + grade +
+                ", name=" + name +
                 ", student=" + student +
+                ", teacher=" + teacher +
+                ", subject=" + subject +
                 ", lesson=" + lesson +
                 '}';
     }

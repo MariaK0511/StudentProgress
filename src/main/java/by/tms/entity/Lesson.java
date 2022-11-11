@@ -7,10 +7,11 @@ import java.util.Date;
 
 @Entity
 public class Lesson {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long numOfLesson;
+    private long lesson;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
@@ -18,9 +19,18 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(long id, Subject subject) {
+    public Lesson(long id, long lesson, Subject subject) {
         this.id = id;
+        this.lesson = lesson;
         this.subject = subject;
+    }
+
+    public long getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(long lesson) {
+        this.lesson = lesson;
     }
 
     public long getId() {
@@ -44,6 +54,7 @@ public class Lesson {
     public String toString() {
         return "Lesson{" +
                 "id=" + id +
+                ", lesson=" + lesson +
                 ", subject=" + subject +
                 '}';
     }

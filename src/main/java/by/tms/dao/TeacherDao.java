@@ -58,11 +58,13 @@ public class TeacherDao {
         session.remove(session.get(Teacher.class, id));
     }
 
-//    @Transactional(readOnly = true)
-//    public Teacher findBySurname(String surname) {
-//        Session session = sessionFactory.getCurrentSession();
-//        Teacher teacher = session.createQuery("from Teacher  where surname = :teacherSurname", Teacher.class)
-//                .setParameter("teacherSurname", surname).getSingleResult();
-//        return teacher;
-//    }
+   @Transactional(readOnly = true)
+    public Long findTeacherIdByNameAndSurname(TeacherDto teacherDto) {
+        Session session = sessionFactory.getCurrentSession();
+        Teacher teacher = session.createQuery("from Teacher  where name =:teacherName and surname = :teacherSurname", Teacher.class)
+                .setParameter("teacherName", teacherDto.getName())
+                .setParameter("teacherSurname", teacherDto.getSurname())
+                .getSingleResult();
+        return teacher.getId();
+    }
 }

@@ -2,6 +2,7 @@ package by.tms.dto;
 
 import by.tms.entity.Lesson;
 import by.tms.entity.Student;
+import by.tms.entity.Subject;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
@@ -14,10 +15,10 @@ public class GradeDto {
     }
     private long id;
     @NotNull
-    private long grade;
+    private long name;
 
     private Student student;
-
+private Subject subject;
 
     private Lesson lesson;
 
@@ -29,11 +30,36 @@ public class GradeDto {
         this.id = id;
     }
 
-    public long getGrade() {
-        return grade;
+
+    public Student getStudent() {
+        return student;
     }
 
-    public void setGrade(long grade) {
-        this.grade = grade;
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
+
+    public long getName() {
+        return name;
+    }
+
+    public void setName(long name) {
+        this.name = name;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }

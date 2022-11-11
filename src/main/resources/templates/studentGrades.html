@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student grades</title>
+</head>
+<body>
+<h3>Student grades: </h3>
+<p th:text="${subject.name}"></p>
+
+<a th:href="@{/studentPerformance}">Return to Student Performance</a>
+</body>
+</html>

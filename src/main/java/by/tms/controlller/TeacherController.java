@@ -2,6 +2,7 @@ package by.tms.controlller;
 
 import by.tms.dao.SubjectDao;
 import by.tms.dao.TeacherDao;
+import by.tms.dto.StudentDto;
 import by.tms.dto.SubjectDto;
 import by.tms.dto.TeacherDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,25 @@ public class TeacherController {
     public String delete(@PathVariable("id") long id) {
         teacherDao.delete(id);
         return "redirect:/teachersList";
+    }
+
+    @GetMapping("/teacherPage")
+    public String initTeacherPage(@ModelAttribute("teacher") TeacherDto teacherDto) {
+        return "teacherPage";
+    }
+
+    @PostMapping("/teacherPage")
+    public String findTeacherIdByNameAndSurname(@ModelAttribute TeacherDto teacherDto, Model model) {
+        Long id = teacherDao.findTeacherIdByNameAndSurname(teacherDto);
+        return "redirect:/teacherBook/" + id;
+    }
+
+    @GetMapping("/teacherBook/{id}")
+    public String showTeacherGradeBook(@PathVariable("id") Long id,
+                                       @ModelAttribute TeacherDto teacherDto,
+                                       Model model) {
+        model.addAttribute("teacher", teacherDao.findById(id));
+        model.addAttribute("subjects", subjectDao.findSubjectsByTeacherId(id));
+        return "teacherBook";
     }
 }

@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Student Performance</title>
+    <title>Teacher GradeBook</title>
 </head>
 <body>
-<h3>Student: </h3>
+<h3>Teacher: </h3>
 <table class="table table-bordered">
     <thead>
     <tr>
@@ -15,24 +15,23 @@
     </tr>
     </thead>
     <tbody>
-    <td th:text="${student.name}">Name</td>
-    <td th:text="${student.surname}">Surname</td>
-    <td th:text="${student.id}">Id</td>
+    <td th:text="${teacher.name}">Name</td>
+    <td th:text="${teacher.surname}">Surname</td>
+    <td th:text="${teacher.id}">Id</td>
     </tbody>
 </table>
 
-<h3>List of Subjects: </h3>
+<h3>Subject: </h3>
 <table class="table table-bordered">
     <tr>
         <th>Name</th>
         <th>Id</th>
     </tr>
     <tr th:each="subject : ${subjects}">
-        <td><a th:href="@{/studentGrades/{id}(id=${subject.id})}" th:text="${subject.name}">Name</a></td>
+        <td th:text="${subject.name}">Name</td>
         <td th:text="${subject.id}">Id</td>
     </tr>
 </table>
-<a th:href="@{/studentPage}">Return to StudentPage</a>
-<a th:href="@{/}">Return to Homepage</a>
+<a th:href="@{/teacherPage}">Return to TeacherPage</a>
 </body>
 </html>
