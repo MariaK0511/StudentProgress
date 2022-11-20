@@ -82,16 +82,16 @@ public class SubjectDao {
         return subjectDto;
     }
 
-    public Subject findSubjectByNameOfSubject(SubjectDto subjectDto) {
+    public Subject findSubjectByNameOfSubject(String subjectName) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from Subject where name = :subjectName",
-                Subject.class).setParameter("subjectName", subjectDto.getName()).getSingleResult();
+                Subject.class).setParameter("subjectName", subjectName).getSingleResult();
     }
 
     @Transactional
     public void addSubjectToTeacher(SubjectDto subjectDto, long id) {
         Session session = sessionFactory.getCurrentSession();
-        Subject subjectByNameOfSubject = findSubjectByNameOfSubject(subjectDto);
+        Subject subjectByNameOfSubject = findSubjectByNameOfSubject(subjectDto.getName());
         Teacher teacher = teacherDao.findById(id);
         subjectByNameOfSubject.setTeacher(teacher);
         session.save(subjectByNameOfSubject);
@@ -109,7 +109,7 @@ public class SubjectDao {
     @Transactional
     public void addSubjectToStudent(SubjectDto subjectDto, long id){
         Session session = sessionFactory.getCurrentSession();
-        Subject subjectByNameOfSubject = findSubjectByNameOfSubject(subjectDto);
+        Subject subjectByNameOfSubject = findSubjectByNameOfSubject(subjectDto.getName());
         Student student= studentDao.findById(id);
         subjectByNameOfSubject.setStudent(student);
         session.save(subjectByNameOfSubject);

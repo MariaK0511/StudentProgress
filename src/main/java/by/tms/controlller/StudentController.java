@@ -1,9 +1,13 @@
 package by.tms.controlller;
 
+import by.tms.dao.GradeDao;
 import by.tms.dao.StudentDao;
 import by.tms.dao.SubjectDao;
+import by.tms.dto.GradeDto;
 import by.tms.dto.StudentDto;
 import by.tms.dto.SubjectDto;
+import by.tms.dto.TeacherDto;
+import by.tms.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,8 @@ public class StudentController {
 
     @Autowired
     private SubjectDao subjectDao;
+    @Autowired
+    private GradeDao gradeDao;
 
     @GetMapping("/studentsList")
     public String initPageOfStudents(@ModelAttribute("student") StudentDto studentDto, Model model) {
@@ -67,8 +73,8 @@ public class StudentController {
 
     @PostMapping("/studentPage")
     public String findStudentIdByNameAndSurname(@ModelAttribute StudentDto studentDto, Model model) {
-        Long id = studentDao.findStudentIdByNameAndSurname(studentDto);
-        return "redirect:/studentPerformance/" + id;
+        Student student = studentDao.findStudent(studentDto.getName(), studentDto.getSurname());
+        return "redirect:/studentPerformance/" + student.getId();
     }
 
     @GetMapping("/studentPerformance/{id}")

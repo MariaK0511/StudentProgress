@@ -1,8 +1,6 @@
 package by.tms.dao;
 
 import by.tms.dto.GradeDto;
-import by.tms.dto.StudentDto;
-import by.tms.dto.SubjectDto;
 import by.tms.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,14 +21,18 @@ public class GradeDao {
     private StudentDao studentDao;
     @Autowired
     private SubjectDao subjectDao;
+    @Autowired
+    private TeacherDao teacherDao;
+
+    private GradeDto gradeDto;
 
     @Transactional
     public void save(GradeDto gradeDto) {
         Session session = sessionFactory.getCurrentSession();
         Grade grade = new Grade();
-        grade.setName(gradeDto.getName());
+        grade.setGrade(gradeDto.getGrade());
         session.save(grade);
-        gradeDto.setId(grade.getId());
+        //  gradeDto.setId(grade.getId());
     }
 
     @Transactional
@@ -39,40 +41,48 @@ public class GradeDao {
         session.remove(session.get(Grade.class, id));
     }
 
-    public GradeDto createGradeDto(Grade grade) {
-        GradeDto gradeDto = new GradeDto();
-        gradeDto.setId(grade.getId());
-        gradeDto.setName(grade.getName());
-        return gradeDto;
+    @Transactional
+    public void createGrade(GradeDto gradeDto) {
+        Session session = sessionFactory.getCurrentSession();
+        Grade grade = new Grade();
+        grade.setGrade(gradeDto.getGrade());
+        grade.setLesson(gradeDto.getLesson());
+        Student student = studentDao.findStudent(gradeDto.getStudentName(),gradeDto.getStudentSurname());
+        grade.setStudent(student);
+        Subject subject = subjectDao.findSubjectByNameOfSubject(gradeDto.getSubjectName());
+        grade.setSubject(subject);
+        Teacher teacher = teacherDao.findById(gradeDto.getTeacherId());
+        grade.setTeacher(teacher);
+        session.save(grade);
     }
 
-    public Grade findGradeByNameOfGrade(GradeDto gradeDto) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Grade where name  = :gradeName",
-                Grade.class).setParameter("gradeName", gradeDto.getName()).getSingleResult();
-    }
 
     @Transactional(readOnly = true)
-    public List<GradeDto> findGradesByStudentIdAndSubjectId(long studentId, long subjectId) {
+    public List<Grade> findGradesByStudentIdAndSubjectId(long studentId, long subjectId) {
         Session session = sessionFactory.getCurrentSession();
-        List<Grade> grades = session.createQuery("from Grade where student.id = :studentId and subject.id =: subjectId",
+        return session.createQuery("from Grade where student.id = :studentId and subject.id =: subjectId",
                         Grade.class)
                 .setParameter("studentId", studentId)
                 .setParameter("subjectId", subjectId)
                 .getResultList();
-        List<GradeDto> gradeDtoList = new ArrayList<>();
-        grades.forEach(grade -> gradeDtoList.add(createGradeDto(grade)));
-        return gradeDtoList;
     }
 
-    @Transactional
-    public void addGradeToStudent(GradeDto gradeDto, long studentId, long subjectId) {
+//    @Transactional
+//    public void addGradeToStudent(GradeDto gradeDto, long studentId, long subjectId) {
+//        Session session = sessionFactory.getCurrentSession();
+//        Grade gradeByNameOfGrade = findGradeByNameOfGrade(gradeDto);
+//        Student student = studentDao.findById(studentId);
+//        Subject subject = subjectDao.findById(subjectId);
+//        gradeByNameOfGrade.setStudent(student);
+//        gradeByNameOfGrade.setSubject(subject);
+//        session.save(gradeByNameOfGrade);
+//    }
+
+
+    @Transactional(readOnly = true)
+    public Grade findGradeByNameOfGrade(GradeDto gradeDto) {
         Session session = sessionFactory.getCurrentSession();
-        Grade gradeByNameOfGrade = findGradeByNameOfGrade(gradeDto);
-        Student student = studentDao.findById(studentId);
-        Subject subject = subjectDao.findById(subjectId);
-        gradeByNameOfGrade.setStudent(student);
-        gradeByNameOfGrade.setSubject(subject);
-        session.save(gradeByNameOfGrade);
+        return session.createQuery("from Grade where grade  = :grade",
+                Grade.class).setParameter("grade", gradeDto.getGrade()).getSingleResult();
     }
 }

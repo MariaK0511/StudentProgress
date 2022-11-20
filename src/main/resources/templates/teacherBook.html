@@ -21,7 +21,7 @@
     </tbody>
 </table>
 
-<h3>Subject: </h3>
+<h3>Subjects: </h3>
 <table class="table table-bordered">
     <tr>
         <th>Name</th>
@@ -32,6 +32,35 @@
         <td th:text="${subject.id}">Id</td>
     </tr>
 </table>
+
+<h3>Add Grade</h3>
+<form th:action="@{/teacherBook/{id}(id=${teacher.getId()})}" th:object="${newGrade}" th:method="post">
+    <label for="grade">Grade: </label>
+    <input type="text" th:field="*{grade}" id="grade"/>
+    <p th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}"></p>
+
+    <label for="lesson">Lesson: </label>
+    <input type="text" th:field="*{lesson}" id="lesson"/>
+    <p th:if="${#fields.hasErrors('lesson')}" th:errors="*{lesson}"></p>
+
+    <label for="studentName">Student Name: </label>
+    <input type="text" th:field="*{studentName}" id="studentName"/>
+    <p th:if="${#fields.hasErrors('studentName')}" th:errors="*{studentName}"></p>
+
+    <label for="studentSurname">Student Surname: </label>
+    <input type="text" th:field="*{studentSurname}" id="studentSurname"/>
+    <p th:if="${#fields.hasErrors('studentSurname')}" th:errors="*{studentSurname}"></p>
+
+    <label for="subjectName">Subject: </label>
+    <input type="text" th:field="*{subjectName}" id="subjectName"/>
+    <p th:if="${#fields.hasErrors('subjectName')}" th:errors="*{subjectName}"></p>
+
+    <label for="teacherId">Teacher: </label>
+    <input type="text" th:field="*{teacherId}" th:readonly="${teacherId}" id="teacherId"/>
+    <p th:if="${#fields.hasErrors('teacherId')}" th:errors="*{teacherId}"></p>
+
+    <input type="submit" value="Add"/>
+</form>
 <a th:href="@{/teacherPage}">Return to TeacherPage</a>
 </body>
 </html>

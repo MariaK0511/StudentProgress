@@ -58,12 +58,12 @@ public class StudentDao {
     }
 
     @Transactional(readOnly = true)
-    public Long findStudentIdByNameAndSurname(StudentDto studentDto) {
+    public Student findStudent(String studentName, String studentSurname) {
         Session session = sessionFactory.getCurrentSession();
         Student student = session.createQuery("from Student where name =: studentName and surname=: studentSurname",
                         Student.class)
-                .setParameter("studentName", studentDto.getName())
-                .setParameter("studentSurname", studentDto.getSurname()).getSingleResult();
-        return student.getId();
+                .setParameter("studentName", studentName)
+                .setParameter("studentSurname", studentSurname).getSingleResult();
+        return student;
     }
 }

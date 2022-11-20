@@ -8,6 +8,19 @@
 <h3>Student grades: </h3>
 <p th:text="${subject.name}"></p>
 
+<table class="table table-bordered">
+    <tr>
+        <th>Lesson</th>
+        <th>Grade</th>
+        <th>Teacher</th>
+    </tr>
+    <tr th:each="grade : ${grades}">
+        <td th:text="${grade.lesson}">Lesson ></td>
+        <td th:text="${grade.grade}">Grade</td>
+        <td th:text="${grade.teacher.id}">Teacher</td>
+    </tr>
+</table>
+
 <a th:href="@{/studentPerformance}">Return to Student Performance</a>
 </body>
 </html>

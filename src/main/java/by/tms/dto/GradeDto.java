@@ -3,6 +3,7 @@ package by.tms.dto;
 import by.tms.entity.Lesson;
 import by.tms.entity.Student;
 import by.tms.entity.Subject;
+import by.tms.entity.Teacher;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
@@ -13,53 +14,62 @@ import javax.validation.constraints.NotNull;
 public class GradeDto {
     public GradeDto() {
     }
-    private long id;
+
     @NotNull
-    private long name;
+    private long grade;
+    private String lesson;
 
-    private Student student;
-private Subject subject;
+    private String studentName;
+    private String studentSurname;
+    private String subjectName;
 
-    private Lesson lesson;
+    private Long teacherId;
 
-    public long getId() {
-        return id;
+    public long getGrade() {
+        return grade;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setGrade(long grade) {
+        this.grade = grade;
     }
 
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Lesson getLesson() {
+    public String getLesson() {
         return lesson;
     }
 
-    public void setLesson(Lesson lesson) {
+    public void setLesson(String lesson) {
         this.lesson = lesson;
     }
 
-    public long getName() {
-        return name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setName(long name) {
-        this.name = name;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public String getStudentSurname() {
+        return studentSurname;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setStudentSurname(String studentSurname) {
+        this.studentSurname = studentSurname;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 }

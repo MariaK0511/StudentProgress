@@ -28,7 +28,7 @@
         <th>Id</th>
     </tr>
     <tr th:each="subject : ${subjects}">
-        <td><a th:href="@{/studentGrades/{id}(id=${subject.id})}" th:text="${subject.name}">Name</a></td>
+        <td><a th:href="@{/studentGrades/{studentId}/{subjectId}(studentId=${student.id},subjectId=${subject.id})}" th:text="${subject.name}">Name</a></td>
         <td th:text="${subject.id}">Id</td>
     </tr>
 </table>

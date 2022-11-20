@@ -1,7 +1,9 @@
 package by.tms.controlller;
 
+import by.tms.dao.GradeDao;
 import by.tms.dao.SubjectDao;
 import by.tms.dao.TeacherDao;
+import by.tms.dto.GradeDto;
 import by.tms.dto.StudentDto;
 import by.tms.dto.SubjectDto;
 import by.tms.dto.TeacherDto;
@@ -20,6 +22,9 @@ public class TeacherController {
     private TeacherDao teacherDao;
     @Autowired
     private SubjectDao subjectDao;
+
+    @Autowired
+    private GradeDao gradeDao;
 
     @GetMapping("/teachersList")
     public String initPageOfTeachers(@ModelAttribute("teacher") TeacherDto teacherDto,
@@ -74,9 +79,24 @@ public class TeacherController {
     @GetMapping("/teacherBook/{id}")
     public String showTeacherGradeBook(@PathVariable("id") Long id,
                                        @ModelAttribute TeacherDto teacherDto,
+                                       @ModelAttribute("newGrade") GradeDto gradeDto,
                                        Model model) {
         model.addAttribute("teacher", teacherDao.findById(id));
         model.addAttribute("subjects", subjectDao.findSubjectsByTeacherId(id));
         return "teacherBook";
     }
+
+    @PostMapping("/teacherBook/{id}")
+    public String addGrade(@PathVariable("id") Long id,
+                           @Valid @ModelAttribute("newGrade") GradeDto gradeDto,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "teachersList";
+        }
+        gradeDao.createGrade(gradeDto);
+        return "redirect:/teacherBook/" + id;
+    }
+
+
+
 }

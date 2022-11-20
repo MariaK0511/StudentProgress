@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>List of Teachers</title>
 </head>
+<body>
 <h3>Add Teacher: </h3>
 <form th:action="@{/teachersList}" th:object="${teacher}" th:method="post">
     <label for="name">Name: </label>
@@ -19,7 +20,7 @@
     <input type="submit" value="Submit"/>
 </form>
 <h3>List of Teachers</h3>
-<body>
+
 <table class="table table-bordered">
     <tr>
         <th>Name</th>

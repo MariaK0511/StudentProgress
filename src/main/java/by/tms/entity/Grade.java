@@ -7,7 +7,7 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long name;
+    private long grade;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Student student;
@@ -16,16 +16,16 @@ public class Grade {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
-    @OneToOne(cascade = CascadeType.ALL )
-    private Lesson lesson;
+
+    private String lesson;
 
 
     public Grade() {
     }
 
-    public Grade(long id, long name, Student student, Teacher teacher, Subject subject, Lesson lesson) {
+    public Grade(long id, long grade, Student student, Teacher teacher, Subject subject, String lesson) {
         this.id = id;
-        this.name = name;
+        this.grade = grade;
         this.student = student;
         this.teacher = teacher;
         this.subject = subject;
@@ -59,20 +59,12 @@ public class Grade {
         this.teacher = teacher;
     }
 
-    public long getName() {
-        return name;
+    public long getGrade() {
+        return grade;
     }
 
-    public void setName(long name) {
-        this.name = name;
-    }
-
-    public Lesson getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
+    public void setGrade(long grade) {
+        this.grade = grade;
     }
 
     public Subject getSubject() {
@@ -83,15 +75,23 @@ public class Grade {
         this.subject = subject;
     }
 
+    public String getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(String lesson) {
+        this.lesson = lesson;
+    }
+
     @Override
     public String toString() {
         return "Grade{" +
                 "id=" + id +
-                ", name=" + name +
+                ", grade=" + grade +
                 ", student=" + student +
                 ", teacher=" + teacher +
                 ", subject=" + subject +
-                ", lesson=" + lesson +
+                ", lesson='" + lesson + '\'' +
                 '}';
     }
 }
